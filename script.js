@@ -5,6 +5,11 @@ window.onload = () => {
     // Crear handlers para los botones de control
     let botonCrearTarjeta = document.querySelector('.create-btn');
     botonCrearTarjeta.addEventListener('click',crearNuevaTarjeta);
+
+    // Seleccionamos los botones de sort-btn
+    let botonesOrdenacion = document.querySelectorAll('.sort-btn');
+    botonesOrdenacion[0].addEventListener('click', ordenarNombreAZ);
+    botonesOrdenacion[1].addEventListener('click', ordenarNombreZA);
 }
 
 function crearTarjetas(filosofos) {
@@ -121,15 +126,30 @@ function ordenarNombreAZ() {
         return nombre1.localeCompare(nombre2);
     });
 
-    // Eliminar totes les targetes de l'array 'tarjeta'
-    // Completar codi
-
-    // Afegir 'tarjetasOrdenadas' al contenidor de cards
-    let contenedor = document.querySelector('.cards-container');
-    // Completar codi
+     // Eliminar totes les targetes de l'array 'tarjeta'
+     let ordenadas = document.querySelector('.cards-container');
+     tarjetas.forEach(tarjeta => ordenadas.removeChild(tarjeta));
+ 
+     // Afegir 'tarjetasOrdenadas' al contenidor de cards
+     let contenedor = document.querySelector('.cards-container');
+     tarjetasOrdenadas.forEach(tarjeta => contenedor.appendChild(tarjeta));
 }
 
 function ordenarNombreZA() {
+    let tarjetas = Array.from(document.querySelectorAll('.card'));
+    let tarjetasOrdenadas = tarjetas.sort((tarjetaA, tarjetaB) => {
+        let nombre1 = tarjetaA.querySelector('h3').innerHTML;
+        let nombre2 = tarjetaB.querySelector('h3').innerHTML;
+        return nombre2.localeCompare(nombre1);
+    });
+
+     // Eliminar totes les targetes de l'array 'tarjeta'
+     let ordenadas = document.querySelector('.cards-container');
+     tarjetas.forEach(tarjeta => ordenadas.removeChild(tarjeta));
+ 
+     // Afegir 'tarjetasOrdenadas' al contenidor de cards
+     let contenedor = document.querySelector('.cards-container');
+     tarjetasOrdenadas.forEach(tarjeta => contenedor.appendChild(tarjeta));
 }
 
 function crearNuevaTarjeta(event) {
