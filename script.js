@@ -1,6 +1,6 @@
 window.onload = () => {
     // Crear tarjetas
-    // crearTarjetas(filosofos)
+    crearTarjetas(filosofos)
 
     // Crear handlers para los botones de control
     let botonCrearTarjeta = document.querySelector('.create-btn');
@@ -12,6 +12,7 @@ function crearTarjetas(filosofos) {
         // Creamos tarjeta vacía
         let tarjeta = document.createElement('div');
         tarjeta.classList.add('card');
+
         // Creamos imagen
         let imagen = document.createElement('img');
         imagen.src = filosofo.imagen;
@@ -23,44 +24,80 @@ function crearTarjetas(filosofos) {
         let info = document.createElement('div');
         info.classList.add('card-info');
         tarjeta.append(info);
+
         // Creamos título
         let titulo = document.createElement('h3');
         titulo.classList.add('nombre');
-        titulo.innerHTML = filosofo.nombre;
+        titulo.textContent = filosofo.nombre;
         info.append(titulo);
+
         // Creamos fila de información (info-row)
         let filaInfo = document.createElement('div');
         filaInfo.classList.add('info-row');
         info.append(filaInfo);
 
         // Añadimos info del país a filaInfo
-        
+        let pais = document.createElement('div');
+        pais.classList.add('info-block');
+        let bandera = document.createElement('img');
+        bandera.src = filosofo.pais.bandera;
+        bandera.alt = `Bandera de ${filosofo.pais.nombre}`;
+        pais.append(bandera);
+        let nombrePais = document.createElement('span');
+        nombrePais.textContent = filosofo.pais.nombre;
+        pais.append(nombrePais);
+        filaInfo.append(pais);
+
         // Añadimos info de la corriente a filaInfo
-        
+        let corriente = document.createElement('div');
+        corriente.classList.add('info-block');
+        corriente.innerHTML = `<span>Corriente: </span>${filosofo.corriente}`;
+        filaInfo.append(corriente);
+
         // Añadimos info del arma a filaInfo
-        
+        let arma = document.createElement('div');
+        arma.classList.add('info-block');
+        arma.innerHTML = `<span>Arma: </span>${filosofo.arma}`;
+        filaInfo.append(arma);
 
         // Añadimos caja de habilidades
         let habilidades = document.createElement('div');
         habilidades.classList.add('skills');
         info.append(habilidades);
         // Añadimos una a una las habilidades
-        for (let infoHabilidad of filosofo.habilidades) {
+        filosofo.habilidades.forEach((infoHabilidad) => {
             // Añadimos una caja de habilidad
-            
+            let habilidad = document.createElement('div');
+            habilidad.classList.add('skill');
+        
             // Añadimos contenido caja de habilidad
             // 1.Icono de habilidad
-            
+            let icono = document.createElement('img');
+            icono.src = "https://via.placeholder.com/16";
+            icono.alt = `Icono de ${icono.habilidad}`;
+            habilidad.append(icono);
+        
             // 2.Etiqueta de habilidad
-            
+            let etiqueta = document.createElement('span');
+            etiqueta.classList.add('skill-label');
+            etiqueta.textContent = infoHabilidad.habilidad;
+            habilidad.append(etiqueta);
+        
             // 2.Barra de habilidad
-            
-        }
-
-        // Añadimos tarjeta creada al contenedor de tarjetas
+            let barraContainer = document.createElement('div');
+            barraContainer.classList.add('skill-bar');
+            let barra = document.createElement('div');
+            barra.classList.add('level');
+            barra.style.width = `${(infoHabilidad.nivel / 4) * 100}%`;
+            barraContainer.append(barra);
+            habilidad.append(barraContainer);
+        
+            habilidades.append(habilidad);
+        });
+        
         let contenedor = document.querySelector('.cards-container');
         contenedor.append(tarjeta);
-    })
+    });
 }
 
 function eliminarTarjeta() {
